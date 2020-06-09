@@ -1,0 +1,362 @@
+---
+title: "Practica2"
+author: "Maite Piedra"
+date: "3/6/2020"
+output:
+  html_document: default
+  pdf_document: default
+---
+```{r instalaciones}
+#install.packages("knitr")
+#install.packages("VIM")
+#install.packages("caret")
+#install.packages("ggplot2")
+#install.packages("corrplot")
+library(caret)
+library(knitr)
+library(VIM)
+library(ggplot2)
+library(corrplot)
+```
+
+```{r set_wd}
+setwd('/Users/maitepiedrayera/Developer/uoc/Tipologia_ciclo_vida_datos/data/')
+ruta = paste(getwd(),"hotel_bookings.csv", sep = "/")
+dh <- read.csv(ruta, header = TRUE, encoding = "latin1" ,sep = ",", stringsAsFactors = TRUE)
+```
+
+## 1.- Descripción del dataset. ¿Por qué es importante y qué pregunta/problema pretende responder?
+
+Como podemos ver nuestro dataset es bastante grande, esta formado por `r nrow(dh)` filas y `r ncol(dh)` columnas 
+
+```{r ddset1}
+str(dh)
+```
+A continuacion describimos cada una de las columnas que conforman nuestro dataset
+ 
+1.- Hotel :Hotel (H1 = Resort Hotel or H2 = City Hotel)
+
+2.- Is_canceled:  Indica si la reserva fue cancelada (1) o no (0)
+
+3.- Lead_time: Número de días transcurridos entre la fecha de entrada de la reserva en sistema de gestión de reservas (PMS) y la fecha de llegada
+
+4.- Arrival_date_year: Año
+
+5.- Arrival_date_month: Mes
+
+6.- Arrival_date_week_number: Día de la semana
+
+7.- Arrival_date_day_of_month: Día del mes en el que entró en el hotel
+
+8.- Stays_in_weekend_nights: Número de noches de fin de semana (sábado o domingo) que el huésped se hospedó o reservó para quedarse en el hotel
+
+9.- Stays_in_week_nights: Número de noches entre  semana (Lunes a viernes) que el huésped se hospedó o reservó para quedarse en el hotel
+
+10.- Adults: Número de adultos.
+
+11.- Children:  Número de niños.
+
+12.- Babies: Número de bebes.
+
+13.- Meal: Type of meal booked: Las categorías se presentan en paquetes estándar de comidas de hospitalidad: Indefinido / SC - sin paquete de comidas; BB - Alojamiento y desayuno; HB - Media pensión (desayuno y otra comida, generalmente cena); FB - Pensión completa (desayuno, almuerzo y cena)
+
+14.- Country: País de origen.
+
+15.- Market_segment: Designación del segmento de mercado. En categorías, el término "TA" significa "Agentes de viajes" y "TO" significa "Operadores turísticos".
+
+16.- Distribution_channel: Canal de distribución de reservas. El término "TA" significa "Agentes de viajes" y "TO" significa "Operadores turísticos".
+
+17.-Is_repeated_guest:Valor que indica si el nombre de la reserva era de un huésped repetido (1) o no (0).
+
+18.- Previous_cancellations: Número de reservas anteriores que el cliente canceló antes de la reserva actual.
+
+19.- Previous_bookings_not_canceled: Número de reservas anteriores no canceladas por el cliente antes de la reserva actual.
+
+20.- Reserved_room_type: Código de tipo de habitación reservado. El código se presenta en lugar de la designación por razones de anonimato.
+
+21.- Assigned_room_type: Código para el tipo de habitación asignada a la reserva. A veces, el tipo de habitación asignada difiere del tipo de habitación reservada debido a razones de operación del hotel (por ejemplo, sobreventa) o por solicitud del cliente. El código se presenta en lugar de la designación por razones de anonimato.
+
+22.- Booking_changes:Número de cambios / modificaciones realizados en la reserva desde el momento en que se ingresó en el PMS (sistema de gestión de reservas) hasta el momento del check-in o cancelación.
+
+23.- Deposit_type: Indicación de si el cliente realizó un depósito para garantizar la reserva. Esta variable puede asumir tres categorías: Sin depósito: no se realizó ningún depósito; Sin reembolso: se realizó un depósito por el valor del costo total de la estadía; Reembolsable: se realizó un depósito con un valor por debajo del costo total de la estadía.
+
+24.- Agent: Identificación de la agencia de viajes que realizó la reserva.
+
+25.-Company: Identificación de la empresa / entidad que realizó la reserva o responsable de pagar la reserva. Se presenta la identificación en lugar de la designación por razones de anonimato.
+
+26.- Days_in_waiting_list: Número de días que la reserva estuvo en la lista de espera antes de ser confirmada al cliente.
+
+27.- Customer_type: Tipo de reserva, asumiendo una de cuatro categorías: Contrato: cuando la reserva tiene una asignación u otro tipo de contrato asociado; Grupo: cuando la reserva está asociada a un grupo; Transitoria: cuando la reserva no forma parte de un grupo o contrato, y no está asociada a otra reserva transitoria; Parte transitoria: cuando la reserva es transitoria, pero está asociada a al menos otra reserva transitoria
+
+28.- Adr: Tarifa diaria promedio según se define dividiendo la suma de todas las transacciones de alojamiento por el número total de noches de estadía.
+
+29.- Required_car_parking_spaces: Número de plazas de aparcamiento requeridas por el cliente.
+
+30-.Total_of_special_requests: Número de solicitudes especiales realizadas por el cliente (por ejemplo, cama doble o piso alto).
+
+31.- Reservation_status: Último estado de la reserva, asumiendo una de tres categorías: Cancelada: la reserva fue cancelada por el cliente; check-out: el cliente se ha registrado pero ya se ha ido; No-Show: el cliente no hizo el check-in e informó al hotel del motivo.
+
+32.- Reservation_status_date: Fecha en la que se estableció el último estado. Esta variable se puede usar junto con el Estado de reserva para comprender cuándo se canceló la reserva o cuándo el cliente realizó el check-out del hotel
+
+Con este dataset, responder  a preguntas como:
+¿ Cual es el mejor epoca del año para hacer una reserva?
+¿ Cual es el número de dias optimo para que la estadia en un hotel me salga rentable?
+
+
+## 2.- Integración y selección de los datos de interés a analizar.
+
+A partir de todas las variables que tenemos se nos plantea cuales son las mas indicadas para resolver nuestras preguntas, como tenemos muchas variables, vamos a eliminar aquellas que creemos que no tienen especial relevancia para las preguntas que nos ocupan, y luego procederemos a limpiar el dataset.
+
+En nuestro caso nos quedamos con 13 variables que consideramos importantes para nuestro estudio y eliminamos del dataset las siguientes:
+Is_canceled, Lead_time, Arrival_date_year, meal, Distribution_channel, Previous_cancellations, Previous_bookings_not_canceled, Reserved_room_type, Assigned_room_type, Booking_changes, Agent, Company, Days_in_waiting_list, Customer_type, Required_car_parking_spaces, Total_of_special_requests, Reservation_status, Reservation_status_date, country y market_segment.
+
+```{r integracion}
+#Nos quedamos solo con las reservas que no han sido cancela, osea aquella cuyo valor is_canceled = 0
+# Asi que pasamos de 119390 filas a 75166 filas
+dh_reducido = (dh[dh$is_canceled == 0, ])
+
+# eliminamos las siguientes columnas
+dh_reducido = dh_reducido[, -c(2:4,13:16,18:22,24:26,29:32 )]
+
+# vemos de que tipo es cada variable en nuestro dataset
+tipo_dato = sapply(dh_reducido, function(x) class(x))
+kable(data.frame(variables = names(dh_reducido), tipo_variable = as.vector(tipo_dato)))
+
+# convertimos a numeric aquellos valores que son enteros, para poder trabajar mas facilmente con ellos.
+dh_reducido[, c(3:10)] <- sapply(dh_reducido[, c(3:10)], as.numeric)
+tipo_dato_reducido = sapply(dh_reducido, function(x) class(x))
+kable(data.frame(variables = names(dh_reducido), tipo_variable = as.vector(tipo_dato_reducido)))
+
+
+# el resumende nuestro dataset seria el siguiente 
+summary(dh_reducido)
+
+```
+
+## 3.- Limpieza de los datos.
+Analizaremos uno por uno los datos devueltos por nuestro summary
+- Hotel: los valores que toma la variable con City Hotel y Resort Hotel, osea son los valores esperados.
+- is_canceled: vemos que el min valor es 0 y el max 1 y esa variable se mueve entre esos valores, odea esta correcto.
+- arrival_date_month: este valor prodriamos normalizarlo, asignando un numero a cada mes (1 => Enero.. 12=> Diciembre), asi nos aseguramos que los valores se mueven entre 1 y 12 y con eso eliminamos la posibilidad de que haya un mes mal escrito o algo por el estilo.
+- arrival_date_week_number : tenemos que el menor valor es 1 (llegar en la primera semana) y el mayor valor 53, sabiendo que un año tiene 53 semanas lo podemos considerar correcto.
+- arrival_date_day_of_month: En principio estaria bien , ya que se mueve entre 1 y 31, osea los dias de los meses.
+- stays_in_weekend_nights: numero de noches que caen en fin de semana, tenemos un valor sospechoso, que puede ser un posible outlier, pasar 19 fines de semana en un hotel es bastante raro.
+- stays_in_week_nights: pasa lo mismo que en el caso anterior, seria una variable a examinar un poco mas a fondo, ya que tenemos un valor bastente inusual (50). 
+- adults: tenemos un valor un poco extraño igual que en los casos anteriores que es un posible outlier, 55 adultos en una reserva, en este caso cabe la posibilidad que se auna reserva de grupo, pero igualmente es algo que hay que mirar. 
+- children: Lo mismo con esta variable, es raro una reserva donde hayan 10 niños, aunque puede ser de una reserva de grupo, y ademas vemos que tenemos valores perdidos   
+- babies: pasa lo mismo que con children.             
+- market_segment 
+- is_repeated_guest : En principio estaria correcto, toma valores entre 0 y 1.
+- deposit_type: estaria correcto, pues solo hay tres tipos de deposito.
+- customer_type: Estaría correcto, pues tenemos 4 tipos de cliente
+- adr: este valor equivale a la tarifa diaria promedio, y es una variable que tenemos que mirar pues toma valores negativos y valores 0 cosa que no deberia ser ademas su valor mas alto es de 5400, que puede ser un posible outlier.
+
+Una vez analizadas las variables una por una, vamos a realizar los cambios que dejimos anteriormente.
+
+```{r Limpieza de datos}
+
+dh_reducido$arrival_date_month <- factor(dh_reducido$arrival_date_month,
+                  levels = c("January","February","March","April","May","June", "July","August", "September", "October", "November", "December"),
+                  labels = c(1,2,3,4,5,6,7,8,9,10,11,12))
+
+dh_reducido$arrival_date_month = as.numeric(as.character(dh_reducido$arrival_date_month))
+```
+#### 3.1. ¿Los datos contienen ceros o elementos vacíos? ¿Cómo gestionarías cada uno de estos casos?
+Es normal que al trabajar con un gran volumen de datos tengamos datos que esten desaparecidos o incluso que tengan valores erroneos.
+
+Los valores 0 o vacios (NA) pueden aparecer porque se desconoce el dato y se dejo vacio en su momento, o porque la persona o algoritmos que tenia que introducir los datos en ese momento tuvo algun problema, en el caso de una persona fisica, se puede deber a un olvido, y en el caso de un programa/algoritmo un fallo en el método de recoleccion de datos o de escritura.
+
+- Rellenar los valores faltantes con el valor de la media, de todos los valores obtenidos, no es una técnica muy optima pero no eliminamos las filas.
+
+- Rellenar los valores faltantes usando el algorimo Knn, osea usa a los vecinos mas cercanos para predecir que valor debería ser ese valor faltante.
+
+en nuestro caso teniamos valores faltantes antes de reducir los datos en particular 4 en la variable children, al eliminar de los datos las reservas canceladas estos desaparecieron.
+
+#### 3.2. Identificación y tratamiento de valores extremos.
+
+Vamos a explicar como podemos detectar los valores extremos a parte e graficamente con el boxplot como lo podemos saber numericamente. Para ello usamos la funcion summary que nos muestra los quartiles de los variables.
+
+Sabemos que entre Q1 y Q3 se encuentra el 50% de los valores obtenidos en el estudio y esta distancia de llama distancia Intercuartilica (IQR).
+
+Un valor atípico leve se define como aquel que esta 1,5 veces el rango intercuartilico por debajo de Q1 o por encima de Q3
+Y un valor atípico extremo se define como aquel que esta 3 veces el rango intercuartilico por debajo de Q1 o por encima de Q3
+
+Cuando la mediana esta muy distante de la media (casi el doble) podemos decir que pasa algo raro, osea que hay valores tan altos que estan tragiversando el estudio.
+
+Ahora aplicamos esto para cada caso.
+
+```{r valores_extremos}
+attach(dh_reducido)
+
+#Crearemos una funcion que nos haga los calculos para no repetirlos con cada caso.
+outlierReplace = function(entrada){
+  iqr.valor = IQR(entrada)
+  cuantiles = quantile(entrada, c(0.25, 0.50, 0.75))
+  # Todo valor inferior a este se considera oulier
+  outlier_min = as.numeric(cuantiles[1])-1.5*iqr.valor 
+  # Todo valor superior a este se considera oulier
+  outlier_max = as.numeric(cuantiles[3])+1.5*iqr.valor
+  #ahora reemplazamos el dato por la media
+  entrada[entrada < outlier_min] = round(mean(entrada))
+  entrada[entrada > outlier_max] = round(median(entrada))
+  return(entrada)
+} 
+
+boxplot(dh_reducido$stays_in_weekend_nights, main="Estadía de dias los fines de semana")
+summary(dh_reducido$stays_in_weekend_nights)
+
+boxplot(dh_reducido$stays_in_week_nights, main="Estadía de dias los fines de semana")
+summary(dh_reducido$stays_in_week_nights)
+
+boxplot(dh_reducido$adults, main="Adultos")
+summary(dh_reducido$adults)
+
+boxplot(dh_reducido$children, main="Niños")
+summary(dh_reducido$children)
+
+boxplot(dh_reducido$babies, main="Bebes")
+summary(dh_reducido$babies)
+
+boxplot(dh_reducido$adr, main="tarifa diaria promedio")
+summary(dh_reducido$adr)
+
+```
+
+En nuestro caso a pesar de haber creado una funcion para eliminar los valores outlier, no la hemos necesitado, puesto que tenemos valores outlier pero como bien dice la teoria la media y la mediana no distan mucho entre si, como vemos en el summary de cada variable, por lo tanto no consideramos los valores outlier peligroso o dañinos para nuestro estudio, es decir si los corregimos el resultado final con los valores outlier o sin ellos no será muy diferente. Por lo tanto los dejamos.
+
+```{r extracion_dataset}
+# Extraemos en un CSV los datos finales que usaremos.
+write.csv(dh_reducido, "datos_hoteles.csv")
+```
+
+## 4.- Análisis de los datos.
+#### 4.1. Selección de los grupos de datos que se quieren analizar/comparar (planificación de los análisis a aplicar).
+
+```{r seleccion}
+
+```
+
+#### 4.2. Comprobación de la normalidad y homogeneidad de la varianza.
+
+```{r normalidad}
+
+comprobar_normalidad = function(datos){
+  for(i in 1:ncol(datos)){
+    if(is.numeric(datos[,i])){
+      qqnorm(datos[,i], main = paste("Normal Q-Q plot para ", colnames(datos)[i]))
+      qqline(datos[,i], col="red")
+      hist(datos[,i],
+           main = paste("Histograma para ", colnames(datos)[i]),
+           xlab = colnames(datos)[i], freq = FALSE)
+    }
+  }
+}
+
+trainIndex=createDataPartition(dh_reducido$hotel, p=0.06)$Resample1
+data_training=dh_reducido[trainIndex, ]
+data_test= dh_reducido[-trainIndex, ]
+
+par(mfrow=c(2,2))
+comprobar_normalidad(data_training)
+```
+
+Ahora para ver si las varibales estan normalizadas aplico el test de 
+Shapiro Wilk a cada variable numérica, para aplicarlo la muestra tienen que ser inferior a  5000, Por eso reducimos la muestra anteriormente
+
+```{r reduccion_muestra}
+shapiro.test(data_training$arrival_date_week_number)
+shapiro.test(data_training$arrival_date_day_of_month)
+shapiro.test(data_training$stays_in_weekend_nights)
+shapiro.test(data_training$stays_in_week_nights)
+shapiro.test(data_training$adults)
+shapiro.test(data_training$children)
+shapiro.test(data_training$babies)
+shapiro.test(data_training$adr)
+```
+
+El test de Shapiro Wilk nos indican que ninguna de las variables estan normalizadas, ya que es p-valor es inferior a 0.05, asi que entendemos que no es normal.
+De todas formas que no sea normal no significa que no pueda llegar a serlo, ya que según el teorema del limite central al tener mas de 30 elementos la observación podemos aproximarla como una distribución normal de media 0 y desviacin estandar 1
+
+#### 4.3. Aplicación de pruebas estadísticas para comparar los grupos de datos. En función de los datos y el objetivo del estudio, aplicar pruebas de contraste de hipótesis, correlaciones, regresiones, etc. Aplicar al menos tres métodos de análisis diferentes.
+
+Para poder responder a las preguntas que hemos planteado anteriormente, podemos usarpruebas de correlación lineal o regresión lineal, para ver la relacion que existe entre dos variables, pero antes vamos a ver sus diferencias:
+ - La correlacion lo que hace es cuantificar como de relacionadas estan dos variables 
+ - La regresión lineal lo que hace es generar una ecuación, que pretende predecir el valor de una en funcion de la otra.
+ 
+Lo que se suele hacer es primeramente ver si ambas variables estan relacionadas y en caso de estarlo se porcede a realizar el modelo de regresión.
+
+```{r pruebas}
+# A partir de ahora usaremos los datos de training
+# por ejemplo queremos estudiar si hay una relacion entre el mes en el que se hace la reserva y el precio
+# de la habitación.
+
+# Haremos un diagrama de dispersión.
+
+ggplot(data = data_training, aes(x=  arrival_date_month, y= adr)) +
+  geom_point(colour= "red4") +
+  ggtitle("Diagrama de dispersión")
+
+cor1 = data_training[, c("arrival_date_month", "adr")]
+correlacion1 = round(cor(cor1), 1)
+corrplot(correlacion1, addCoef.col = "black")
+  
+# si hay una relacion entre el dia del mes y el precio
+# de la habitación.
+
+ggplot(data = data_training, aes(x = arrival_date_day_of_month , y= adr)) +
+  geom_point(colour= "red4") +
+  ggtitle("Diagrama de dispersión")
+
+cor2 = data_training[, c("arrival_date_day_of_month", "adr")]
+correlacion2 = round(cor(cor2), 1)
+corrplot(correlacion2, addCoef.col = "black")
+
+# si hay una relacion entre el número de personas al que se hace la reserva y
+# el precio de la habitación.
+
+ggplot(data = data_training, aes(x = adults , y= adr)) +
+  geom_point(colour= "red4") +
+  ggtitle("Diagrama de dispersión")
+
+cor3 = data_training[, c("adults", "adr")]
+correlacion3 = round(cor(cor3), 1)
+corrplot(correlacion3, addCoef.col = "black")
+
+
+# si hay una relacion entre el número de de dias entre semana  y
+# el precio de la habitación.
+
+ggplot(data = data_training, aes(x = stays_in_week_nights , y= adr)) +
+  geom_point(colour= "red4") +
+  ggtitle("Diagrama de dispersión")
+
+cor4 = data_training[, c("stays_in_week_nights", "adr")]
+correlacion4 = round(cor(cor4), 1)
+corrplot(correlacion4, addCoef.col = "black")
+
+```
+
+Como podemos comprobar tanto graficamente como numericamente no existe una correlacion muy fuerte entre ningunas de las variables
+Por ejemplo vamos a estimar por minimos cuadrados que relación hay entre en numero de adultos para el que se hace la reserva, el mes de llegada y el precio medio de la noche
+
+
+```{r regre}
+regresion = lm(adr ~ adults + stays_in_week_nights + stays_in_weekend_nights, data= data_training)
+resultado_regresion =  summary(regresion)
+resultado_regresion
+```
+
+Explicando un poco el modelo con estas 4 variables es capaz de aplicar el 10% de la varianza observada en el precio de la habitación. (siendo el R ajustado =0.1069) cuanto más próximo a 1 también indica que el modelo es capaz de explicar una gran proporción de la varianza en la variable respuesta. 
+
+El P-valor del modelo es significativo (2.2e-16) por lo que podemos decir que el modelo es útil y que exite una relación entre los predictores y la variable respuesta (uno de los coeficientes es distinto de 0)
+
+La estimación puntual seria o b0 : 42.4259 La estimación que acompaña a adults que es b1: 30.8362 La estimacion que acompaña a stays_in_week_nights que es b2: 1.0104 y la que acompaña a stays_in_weekend_nights es b3:-1.4415 
+
+La ecuacion de regresión que representa a este modelo sería El modelo teórico seria Y = b0 + b1*adults + b2*stays_in_week_nights + b3*stays_in_weekend_nights
+
+##5. Representación de los resultados a partir de tablas y gráficas.
+
+En este apartado hemos los graficos los hemos ido poniendo a medida que ibamos desarrollando la practica para tener en la medida de lo posible vista grafica y numerica de los resultados obtenidos.
+
+##6. Resolución del problema. A partir de los resultados obtenidos, ¿cuáles son las conclusiones? ¿Los resultados permiten responder al problema?
+
