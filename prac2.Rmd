@@ -3,8 +3,8 @@ title: "Practica2"
 author: "Maite Piedra"
 date: "3/6/2020"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 ---
 ```{r instalaciones}
 #install.packages("knitr")
@@ -354,9 +354,36 @@ La estimación puntual seria o b0 : 42.4259 La estimación que acompaña a adult
 
 La ecuacion de regresión que representa a este modelo sería El modelo teórico seria Y = b0 + b1*adults + b2*stays_in_week_nights + b3*stays_in_weekend_nights
 
-##5. Representación de los resultados a partir de tablas y gráficas.
+Por otro lado podemos ver el contraste de precio entre dependiendo del tipo de hotel que tenomos (City Hotel) y (Resort Hotel)
+
+En este caso consideramos dos muestras independientes y lo queremos saberes si, la tarifa diaria promedio es diferente al de los hoteles en la ciudad o los resort, por lo tanto hay hay que considerar dos muestras independientes.
+En este caso tenemos una muestra aleatoria de tamaño n1  y otra muestra de tamaño n2.
+
+En este caso nuestra hipótesis nula sería: H0: μ1 = μ2
+y nuestra hipótesis alternativa es la siguiente
+H1: μ1 /= μ2
+
+No se nos da ninguna información sobre esta distribución, asi que hemos de analizar si se cumple el teorema del limite central, Dado que la muestra es suficientemente grande podemos suponer que la media aritmetica de la muestra se puede aproximar a una distribución normal.
+
+La media muestral tiene esperanza μ y varianza σ2/n, además por ser combinación lineal de variables normales es a su vez Normal
+
+```{r contraste_precio}
+city_hotel = data_training[data_training$hotel == "City Hotel", "adr"]
+resort_hotel = data_training[data_training$hotel == "Resort Hotel", "adr"]
+
+t.test(city_hotel, resort_hotel, alternative="two.side", var.equal=TRUE,conf.level=0.95)
+```
+
+Con un p-value = 2.2e-16 menor de 0.05 por lo tanto rechazamos la hipotesis nula, osea hay una direrencia entre un hotel en el ciudad y un resort.
+Por lo tanto hay diferencias significativas entre las medias. Podemos concluir que la media entre un hotel en la ciudad y uno resort son distintas en cuanto al tarifa diaria.
+
+## 5. Representación de los resultados a partir de tablas y gráficas.
 
 En este apartado hemos los graficos los hemos ido poniendo a medida que ibamos desarrollando la practica para tener en la medida de lo posible vista grafica y numerica de los resultados obtenidos.
 
-##6. Resolución del problema. A partir de los resultados obtenidos, ¿cuáles son las conclusiones? ¿Los resultados permiten responder al problema?
+## 6. Resolución del problema. A partir de los resultados obtenidos, ¿cuáles son las conclusiones? ¿Los resultados permiten responder al problema?
+
+En nuestro caso no pudimos obtener una relacion lineal entre las variables peso y ninguna de las otras variables en el dataset, estudiamos la correlacion entre cada una de ellas, pero los valores obtenidos fueron muy cercanos al cero en todos los casos, por lo tanto no encontramos una relacion fuerte entre las variables.
+
+Por otro lado el analisis realizado sobre el tipo de hotel y tarifa diaria, pudimos concluir que  hay bastante diferencia de precio dependiendo del tipo de hotel.
 

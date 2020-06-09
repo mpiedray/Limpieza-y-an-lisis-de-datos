@@ -1,0 +1,1144 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
+\hypersetup{
+            pdftitle={Practica2},
+            pdfauthor={Maite Piedra},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs}
+% Fix footnotes in tables (requires footnote package)
+\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{longtable}}{}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\title{Practica2}
+\author{Maite Piedra}
+\date{3/6/2020}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#install.packages("knitr")}
+\CommentTok{#install.packages("VIM")}
+\CommentTok{#install.packages("caret")}
+\CommentTok{#install.packages("ggplot2")}
+\CommentTok{#install.packages("corrplot")}
+\KeywordTok{library}\NormalTok{(caret)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: lattice
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: ggplot2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(knitr)}
+\KeywordTok{library}\NormalTok{(VIM)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: colorspace
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: grid
+\end{verbatim}
+
+\begin{verbatim}
+## VIM is ready to use.
+\end{verbatim}
+
+\begin{verbatim}
+## Suggestions and bug-reports can be submitted at: https://github.com/statistikat/VIM/issues
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'VIM'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:datasets':
+## 
+##     sleep
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\KeywordTok{library}\NormalTok{(corrplot)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## corrplot 0.84 loaded
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{setwd}\NormalTok{(}\StringTok{'/Users/maitepiedrayera/Developer/uoc/Tipologia_ciclo_vida_datos/data/'}\NormalTok{)}
+\NormalTok{ruta =}\StringTok{ }\KeywordTok{paste}\NormalTok{(}\KeywordTok{getwd}\NormalTok{(),}\StringTok{"hotel_bookings.csv"}\NormalTok{, }\DataTypeTok{sep =} \StringTok{"/"}\NormalTok{)}
+\NormalTok{dh <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(ruta, }\DataTypeTok{header =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{encoding =} \StringTok{"latin1"}\NormalTok{ ,}\DataTypeTok{sep =} \StringTok{","}\NormalTok{, }\DataTypeTok{stringsAsFactors =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{descripciuxf3n-del-dataset.-por-quuxe9-es-importante-y-quuxe9-preguntaproblema-pretende-responder}{%
+\subsection{1.- Descripción del dataset. ¿Por qué es importante y qué
+pregunta/problema pretende
+responder?}\label{descripciuxf3n-del-dataset.-por-quuxe9-es-importante-y-quuxe9-preguntaproblema-pretende-responder}}
+
+Como podemos ver nuestro dataset es bastante grande, esta formado por
+119390 filas y 32 columnas
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{str}\NormalTok{(dh)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    119390 obs. of  32 variables:
+##  $ hotel                         : Factor w/ 2 levels "City Hotel","Resort Hotel": 2 2 2 2 2 2 2 2 2 2 ...
+##  $ is_canceled                   : int  0 0 0 0 0 0 0 0 1 1 ...
+##  $ lead_time                     : int  342 737 7 13 14 14 0 9 85 75 ...
+##  $ arrival_date_year             : int  2015 2015 2015 2015 2015 2015 2015 2015 2015 2015 ...
+##  $ arrival_date_month            : Factor w/ 12 levels "April","August",..: 6 6 6 6 6 6 6 6 6 6 ...
+##  $ arrival_date_week_number      : int  27 27 27 27 27 27 27 27 27 27 ...
+##  $ arrival_date_day_of_month     : int  1 1 1 1 1 1 1 1 1 1 ...
+##  $ stays_in_weekend_nights       : int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ stays_in_week_nights          : int  0 0 1 1 2 2 2 2 3 3 ...
+##  $ adults                        : int  2 2 1 1 2 2 2 2 2 2 ...
+##  $ children                      : int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ babies                        : int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ meal                          : Factor w/ 5 levels "BB","FB","HB",..: 1 1 1 1 1 1 1 2 1 3 ...
+##  $ country                       : Factor w/ 178 levels "ABW","AGO","AIA",..: 137 137 60 60 60 60 137 137 137 137 ...
+##  $ market_segment                : Factor w/ 8 levels "Aviation","Complementary",..: 4 4 4 3 7 7 4 4 7 6 ...
+##  $ distribution_channel          : Factor w/ 5 levels "Corporate","Direct",..: 2 2 2 1 4 4 2 2 4 4 ...
+##  $ is_repeated_guest             : int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ previous_cancellations        : int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ previous_bookings_not_canceled: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ reserved_room_type            : Factor w/ 10 levels "A","B","C","D",..: 3 3 1 1 1 1 3 3 1 4 ...
+##  $ assigned_room_type            : Factor w/ 12 levels "A","B","C","D",..: 3 3 3 1 1 1 3 3 1 4 ...
+##  $ booking_changes               : int  3 4 0 0 0 0 0 0 0 0 ...
+##  $ deposit_type                  : Factor w/ 3 levels "No Deposit","Non Refund",..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ agent                         : Factor w/ 334 levels "1","10","103",..: 334 334 334 157 103 103 334 156 103 40 ...
+##  $ company                       : Factor w/ 353 levels "10","100","101",..: 353 353 353 353 353 353 353 353 353 353 ...
+##  $ days_in_waiting_list          : int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ customer_type                 : Factor w/ 4 levels "Contract","Group",..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ adr                           : num  0 0 75 75 98 ...
+##  $ required_car_parking_spaces   : int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ total_of_special_requests     : int  0 0 0 0 1 1 0 1 1 0 ...
+##  $ reservation_status            : Factor w/ 3 levels "Canceled","Check-Out",..: 2 2 2 2 2 2 2 2 1 1 ...
+##  $ reservation_status_date       : Factor w/ 926 levels "2014-10-17","2014-11-18",..: 122 122 123 123 124 124 124 124 73 62 ...
+\end{verbatim}
+
+A continuacion describimos cada una de las columnas que conforman
+nuestro dataset
+
+1.- Hotel :Hotel (H1 = Resort Hotel or H2 = City Hotel)
+
+2.- Is\_canceled: Indica si la reserva fue cancelada (1) o no (0)
+
+3.- Lead\_time: Número de días transcurridos entre la fecha de entrada
+de la reserva en sistema de gestión de reservas (PMS) y la fecha de
+llegada
+
+4.- Arrival\_date\_year: Año
+
+5.- Arrival\_date\_month: Mes
+
+6.- Arrival\_date\_week\_number: Día de la semana
+
+7.- Arrival\_date\_day\_of\_month: Día del mes en el que entró en el
+hotel
+
+8.- Stays\_in\_weekend\_nights: Número de noches de fin de semana
+(sábado o domingo) que el huésped se hospedó o reservó para quedarse en
+el hotel
+
+9.- Stays\_in\_week\_nights: Número de noches entre semana (Lunes a
+viernes) que el huésped se hospedó o reservó para quedarse en el hotel
+
+10.- Adults: Número de adultos.
+
+11.- Children: Número de niños.
+
+12.- Babies: Número de bebes.
+
+13.- Meal: Type of meal booked: Las categorías se presentan en paquetes
+estándar de comidas de hospitalidad: Indefinido / SC - sin paquete de
+comidas; BB - Alojamiento y desayuno; HB - Media pensión (desayuno y
+otra comida, generalmente cena); FB - Pensión completa (desayuno,
+almuerzo y cena)
+
+14.- Country: País de origen.
+
+15.- Market\_segment: Designación del segmento de mercado. En
+categorías, el término ``TA'' significa ``Agentes de viajes'' y ``TO''
+significa ``Operadores turísticos''.
+
+16.- Distribution\_channel: Canal de distribución de reservas. El
+término ``TA'' significa ``Agentes de viajes'' y ``TO'' significa
+``Operadores turísticos''.
+
+17.-Is\_repeated\_guest:Valor que indica si el nombre de la reserva era
+de un huésped repetido (1) o no (0).
+
+18.- Previous\_cancellations: Número de reservas anteriores que el
+cliente canceló antes de la reserva actual.
+
+19.- Previous\_bookings\_not\_canceled: Número de reservas anteriores no
+canceladas por el cliente antes de la reserva actual.
+
+20.- Reserved\_room\_type: Código de tipo de habitación reservado. El
+código se presenta en lugar de la designación por razones de anonimato.
+
+21.- Assigned\_room\_type: Código para el tipo de habitación asignada a
+la reserva. A veces, el tipo de habitación asignada difiere del tipo de
+habitación reservada debido a razones de operación del hotel (por
+ejemplo, sobreventa) o por solicitud del cliente. El código se presenta
+en lugar de la designación por razones de anonimato.
+
+22.- Booking\_changes:Número de cambios / modificaciones realizados en
+la reserva desde el momento en que se ingresó en el PMS (sistema de
+gestión de reservas) hasta el momento del check-in o cancelación.
+
+23.- Deposit\_type: Indicación de si el cliente realizó un depósito para
+garantizar la reserva. Esta variable puede asumir tres categorías: Sin
+depósito: no se realizó ningún depósito; Sin reembolso: se realizó un
+depósito por el valor del costo total de la estadía; Reembolsable: se
+realizó un depósito con un valor por debajo del costo total de la
+estadía.
+
+24.- Agent: Identificación de la agencia de viajes que realizó la
+reserva.
+
+25.-Company: Identificación de la empresa / entidad que realizó la
+reserva o responsable de pagar la reserva. Se presenta la identificación
+en lugar de la designación por razones de anonimato.
+
+26.- Days\_in\_waiting\_list: Número de días que la reserva estuvo en la
+lista de espera antes de ser confirmada al cliente.
+
+27.- Customer\_type: Tipo de reserva, asumiendo una de cuatro
+categorías: Contrato: cuando la reserva tiene una asignación u otro tipo
+de contrato asociado; Grupo: cuando la reserva está asociada a un grupo;
+Transitoria: cuando la reserva no forma parte de un grupo o contrato, y
+no está asociada a otra reserva transitoria; Parte transitoria: cuando
+la reserva es transitoria, pero está asociada a al menos otra reserva
+transitoria
+
+28.- Adr: Tarifa diaria promedio según se define dividiendo la suma de
+todas las transacciones de alojamiento por el número total de noches de
+estadía.
+
+29.- Required\_car\_parking\_spaces: Número de plazas de aparcamiento
+requeridas por el cliente.
+
+30-.Total\_of\_special\_requests: Número de solicitudes especiales
+realizadas por el cliente (por ejemplo, cama doble o piso alto).
+
+31.- Reservation\_status: Último estado de la reserva, asumiendo una de
+tres categorías: Cancelada: la reserva fue cancelada por el cliente;
+check-out: el cliente se ha registrado pero ya se ha ido; No-Show: el
+cliente no hizo el check-in e informó al hotel del motivo.
+
+32.- Reservation\_status\_date: Fecha en la que se estableció el último
+estado. Esta variable se puede usar junto con el Estado de reserva para
+comprender cuándo se canceló la reserva o cuándo el cliente realizó el
+check-out del hotel
+
+Con este dataset, responder a preguntas como: ¿ Cual es el mejor epoca
+del año para hacer una reserva? ¿ Cual es el número de dias optimo para
+que la estadia en un hotel me salga rentable?
+
+\hypertarget{integraciuxf3n-y-selecciuxf3n-de-los-datos-de-interuxe9s-a-analizar.}{%
+\subsection{2.- Integración y selección de los datos de interés a
+analizar.}\label{integraciuxf3n-y-selecciuxf3n-de-los-datos-de-interuxe9s-a-analizar.}}
+
+A partir de todas las variables que tenemos se nos plantea cuales son
+las mas indicadas para resolver nuestras preguntas, como tenemos muchas
+variables, vamos a eliminar aquellas que creemos que no tienen especial
+relevancia para las preguntas que nos ocupan, y luego procederemos a
+limpiar el dataset.
+
+En nuestro caso nos quedamos con 13 variables que consideramos
+importantes para nuestro estudio y eliminamos del dataset las
+siguientes: Is\_canceled, Lead\_time, Arrival\_date\_year, meal,
+Distribution\_channel, Previous\_cancellations,
+Previous\_bookings\_not\_canceled, Reserved\_room\_type,
+Assigned\_room\_type, Booking\_changes, Agent, Company,
+Days\_in\_waiting\_list, Customer\_type, Required\_car\_parking\_spaces,
+Total\_of\_special\_requests, Reservation\_status,
+Reservation\_status\_date, country y market\_segment.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Nos quedamos solo con las reservas que no han sido cancela, osea aquella cuyo valor is_canceled = 0}
+\CommentTok{# Asi que pasamos de 119390 filas a 75166 filas}
+\NormalTok{dh_reducido =}\StringTok{ }\NormalTok{(dh[dh}\OperatorTok{$}\NormalTok{is_canceled }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{, ])}
+
+\CommentTok{# eliminamos las siguientes columnas}
+\NormalTok{dh_reducido =}\StringTok{ }\NormalTok{dh_reducido[, }\OperatorTok{-}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\OperatorTok{:}\DecValTok{4}\NormalTok{,}\DecValTok{13}\OperatorTok{:}\DecValTok{16}\NormalTok{,}\DecValTok{18}\OperatorTok{:}\DecValTok{22}\NormalTok{,}\DecValTok{24}\OperatorTok{:}\DecValTok{26}\NormalTok{,}\DecValTok{29}\OperatorTok{:}\DecValTok{32}\NormalTok{ )]}
+
+\CommentTok{# vemos de que tipo es cada variable en nuestro dataset}
+\NormalTok{tipo_dato =}\StringTok{ }\KeywordTok{sapply}\NormalTok{(dh_reducido, }\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{class}\NormalTok{(x))}
+\KeywordTok{kable}\NormalTok{(}\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{variables =} \KeywordTok{names}\NormalTok{(dh_reducido), }\DataTypeTok{tipo_variable =} \KeywordTok{as.vector}\NormalTok{(tipo_dato)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+variables & tipo\_variable\tabularnewline
+\midrule
+\endhead
+hotel & factor\tabularnewline
+arrival\_date\_month & factor\tabularnewline
+arrival\_date\_week\_number & integer\tabularnewline
+arrival\_date\_day\_of\_month & integer\tabularnewline
+stays\_in\_weekend\_nights & integer\tabularnewline
+stays\_in\_week\_nights & integer\tabularnewline
+adults & integer\tabularnewline
+children & integer\tabularnewline
+babies & integer\tabularnewline
+is\_repeated\_guest & integer\tabularnewline
+deposit\_type & factor\tabularnewline
+customer\_type & factor\tabularnewline
+adr & numeric\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# convertimos a numeric aquellos valores que son enteros, para poder trabajar mas facilmente con ellos.}
+\NormalTok{dh_reducido[, }\KeywordTok{c}\NormalTok{(}\DecValTok{3}\OperatorTok{:}\DecValTok{10}\NormalTok{)] <-}\StringTok{ }\KeywordTok{sapply}\NormalTok{(dh_reducido[, }\KeywordTok{c}\NormalTok{(}\DecValTok{3}\OperatorTok{:}\DecValTok{10}\NormalTok{)], as.numeric)}
+\NormalTok{tipo_dato_reducido =}\StringTok{ }\KeywordTok{sapply}\NormalTok{(dh_reducido, }\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{class}\NormalTok{(x))}
+\KeywordTok{kable}\NormalTok{(}\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{variables =} \KeywordTok{names}\NormalTok{(dh_reducido), }\DataTypeTok{tipo_variable =} \KeywordTok{as.vector}\NormalTok{(tipo_dato_reducido)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+variables & tipo\_variable\tabularnewline
+\midrule
+\endhead
+hotel & factor\tabularnewline
+arrival\_date\_month & factor\tabularnewline
+arrival\_date\_week\_number & numeric\tabularnewline
+arrival\_date\_day\_of\_month & numeric\tabularnewline
+stays\_in\_weekend\_nights & numeric\tabularnewline
+stays\_in\_week\_nights & numeric\tabularnewline
+adults & numeric\tabularnewline
+children & numeric\tabularnewline
+babies & numeric\tabularnewline
+is\_repeated\_guest & numeric\tabularnewline
+deposit\_type & factor\tabularnewline
+customer\_type & factor\tabularnewline
+adr & numeric\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# el resumende nuestro dataset seria el siguiente }
+\KeywordTok{summary}\NormalTok{(dh_reducido)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           hotel       arrival_date_month arrival_date_week_number
+##  City Hotel  :46228   August : 8638      Min.   : 1.00           
+##  Resort Hotel:28938   July   : 7919      1st Qu.:16.00           
+##                       May    : 7114      Median :28.00           
+##                       October: 6914      Mean   :27.08           
+##                       March  : 6645      3rd Qu.:38.00           
+##                       April  : 6565      Max.   :53.00           
+##                       (Other):31371                              
+##  arrival_date_day_of_month stays_in_weekend_nights stays_in_week_nights
+##  Min.   : 1.00             Min.   : 0.000          Min.   : 0.000      
+##  1st Qu.: 8.00             1st Qu.: 0.000          1st Qu.: 1.000      
+##  Median :16.00             Median : 1.000          Median : 2.000      
+##  Mean   :15.84             Mean   : 0.929          Mean   : 2.464      
+##  3rd Qu.:23.00             3rd Qu.: 2.000          3rd Qu.: 3.000      
+##  Max.   :31.00             Max.   :19.000          Max.   :50.000      
+##                                                                        
+##      adults        children          babies         is_repeated_guest
+##  Min.   :0.00   Min.   :0.0000   Min.   : 0.00000   Min.   :0.00000  
+##  1st Qu.:2.00   1st Qu.:0.0000   1st Qu.: 0.00000   1st Qu.:0.00000  
+##  Median :2.00   Median :0.0000   Median : 0.00000   Median :0.00000  
+##  Mean   :1.83   Mean   :0.1023   Mean   : 0.01038   Mean   :0.04334  
+##  3rd Qu.:2.00   3rd Qu.:0.0000   3rd Qu.: 0.00000   3rd Qu.:0.00000  
+##  Max.   :4.00   Max.   :3.0000   Max.   :10.00000   Max.   :1.00000  
+##                                                                      
+##      deposit_type           customer_type        adr        
+##  No Deposit:74947   Contract       : 2814   Min.   : -6.38  
+##  Non Refund:   93   Group          :  518   1st Qu.: 67.50  
+##  Refundable:  126   Transient      :53099   Median : 92.50  
+##                     Transient-Party:18735   Mean   : 99.99  
+##                                             3rd Qu.:125.00  
+##                                             Max.   :510.00  
+## 
+\end{verbatim}
+
+\hypertarget{limpieza-de-los-datos.}{%
+\subsection{3.- Limpieza de los datos.}\label{limpieza-de-los-datos.}}
+
+Analizaremos uno por uno los datos devueltos por nuestro summary -
+Hotel: los valores que toma la variable con City Hotel y Resort Hotel,
+osea son los valores esperados. - is\_canceled: vemos que el min valor
+es 0 y el max 1 y esa variable se mueve entre esos valores, odea esta
+correcto. - arrival\_date\_month: este valor prodriamos normalizarlo,
+asignando un numero a cada mes (1 =\textgreater{} Enero..
+12=\textgreater{} Diciembre), asi nos aseguramos que los valores se
+mueven entre 1 y 12 y con eso eliminamos la posibilidad de que haya un
+mes mal escrito o algo por el estilo. - arrival\_date\_week\_number :
+tenemos que el menor valor es 1 (llegar en la primera semana) y el mayor
+valor 53, sabiendo que un año tiene 53 semanas lo podemos considerar
+correcto. - arrival\_date\_day\_of\_month: En principio estaria bien ,
+ya que se mueve entre 1 y 31, osea los dias de los meses. -
+stays\_in\_weekend\_nights: numero de noches que caen en fin de semana,
+tenemos un valor sospechoso, que puede ser un posible outlier, pasar 19
+fines de semana en un hotel es bastante raro. - stays\_in\_week\_nights:
+pasa lo mismo que en el caso anterior, seria una variable a examinar un
+poco mas a fondo, ya que tenemos un valor bastente inusual (50). -
+adults: tenemos un valor un poco extraño igual que en los casos
+anteriores que es un posible outlier, 55 adultos en una reserva, en este
+caso cabe la posibilidad que se auna reserva de grupo, pero igualmente
+es algo que hay que mirar. - children: Lo mismo con esta variable, es
+raro una reserva donde hayan 10 niños, aunque puede ser de una reserva
+de grupo, y ademas vemos que tenemos valores perdidos\\
+- babies: pasa lo mismo que con children.\\
+- market\_segment - is\_repeated\_guest : En principio estaria correcto,
+toma valores entre 0 y 1. - deposit\_type: estaria correcto, pues solo
+hay tres tipos de deposito. - customer\_type: Estaría correcto, pues
+tenemos 4 tipos de cliente - adr: este valor equivale a la tarifa diaria
+promedio, y es una variable que tenemos que mirar pues toma valores
+negativos y valores 0 cosa que no deberia ser ademas su valor mas alto
+es de 5400, que puede ser un posible outlier.
+
+Una vez analizadas las variables una por una, vamos a realizar los
+cambios que dejimos anteriormente.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dh_reducido}\OperatorTok{$}\NormalTok{arrival_date_month <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(dh_reducido}\OperatorTok{$}\NormalTok{arrival_date_month,}
+                  \DataTypeTok{levels =} \KeywordTok{c}\NormalTok{(}\StringTok{"January"}\NormalTok{,}\StringTok{"February"}\NormalTok{,}\StringTok{"March"}\NormalTok{,}\StringTok{"April"}\NormalTok{,}\StringTok{"May"}\NormalTok{,}\StringTok{"June"}\NormalTok{, }\StringTok{"July"}\NormalTok{,}\StringTok{"August"}\NormalTok{, }\StringTok{"September"}\NormalTok{, }\StringTok{"October"}\NormalTok{, }\StringTok{"November"}\NormalTok{, }\StringTok{"December"}\NormalTok{),}
+                  \DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{9}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{11}\NormalTok{,}\DecValTok{12}\NormalTok{))}
+
+\NormalTok{dh_reducido}\OperatorTok{$}\NormalTok{arrival_date_month =}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{as.character}\NormalTok{(dh_reducido}\OperatorTok{$}\NormalTok{arrival_date_month))}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{los-datos-contienen-ceros-o-elementos-vacuxedos-cuxf3mo-gestionaruxedas-cada-uno-de-estos-casos}{%
+\paragraph{3.1. ¿Los datos contienen ceros o elementos vacíos? ¿Cómo
+gestionarías cada uno de estos
+casos?}\label{los-datos-contienen-ceros-o-elementos-vacuxedos-cuxf3mo-gestionaruxedas-cada-uno-de-estos-casos}}
+
+Es normal que al trabajar con un gran volumen de datos tengamos datos
+que esten desaparecidos o incluso que tengan valores erroneos.
+
+Los valores 0 o vacios (NA) pueden aparecer porque se desconoce el dato
+y se dejo vacio en su momento, o porque la persona o algoritmos que
+tenia que introducir los datos en ese momento tuvo algun problema, en el
+caso de una persona fisica, se puede deber a un olvido, y en el caso de
+un programa/algoritmo un fallo en el método de recoleccion de datos o de
+escritura.
+
+\begin{itemize}
+\item
+  Rellenar los valores faltantes con el valor de la media, de todos los
+  valores obtenidos, no es una técnica muy optima pero no eliminamos las
+  filas.
+\item
+  Rellenar los valores faltantes usando el algorimo Knn, osea usa a los
+  vecinos mas cercanos para predecir que valor debería ser ese valor
+  faltante.
+\end{itemize}
+
+en nuestro caso teniamos valores faltantes antes de reducir los datos en
+particular 4 en la variable children, al eliminar de los datos las
+reservas canceladas estos desaparecieron.
+
+\hypertarget{identificaciuxf3n-y-tratamiento-de-valores-extremos.}{%
+\paragraph{3.2. Identificación y tratamiento de valores
+extremos.}\label{identificaciuxf3n-y-tratamiento-de-valores-extremos.}}
+
+Vamos a explicar como podemos detectar los valores extremos a parte e
+graficamente con el boxplot como lo podemos saber numericamente. Para
+ello usamos la funcion summary que nos muestra los quartiles de los
+variables.
+
+Sabemos que entre Q1 y Q3 se encuentra el 50\% de los valores obtenidos
+en el estudio y esta distancia de llama distancia Intercuartilica (IQR).
+
+Un valor atípico leve se define como aquel que esta 1,5 veces el rango
+intercuartilico por debajo de Q1 o por encima de Q3 Y un valor atípico
+extremo se define como aquel que esta 3 veces el rango intercuartilico
+por debajo de Q1 o por encima de Q3
+
+Cuando la mediana esta muy distante de la media (casi el doble) podemos
+decir que pasa algo raro, osea que hay valores tan altos que estan
+tragiversando el estudio.
+
+Ahora aplicamos esto para cada caso.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{attach}\NormalTok{(dh_reducido)}
+
+\CommentTok{#Crearemos una funcion que nos haga los calculos para no repetirlos con cada caso.}
+\NormalTok{outlierReplace =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(entrada)\{}
+\NormalTok{  iqr.valor =}\StringTok{ }\KeywordTok{IQR}\NormalTok{(entrada)}
+\NormalTok{  cuantiles =}\StringTok{ }\KeywordTok{quantile}\NormalTok{(entrada, }\KeywordTok{c}\NormalTok{(}\FloatTok{0.25}\NormalTok{, }\FloatTok{0.50}\NormalTok{, }\FloatTok{0.75}\NormalTok{))}
+  \CommentTok{# Todo valor inferior a este se considera oulier}
+\NormalTok{  outlier_min =}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(cuantiles[}\DecValTok{1}\NormalTok{])}\OperatorTok{-}\FloatTok{1.5}\OperatorTok{*}\NormalTok{iqr.valor }
+  \CommentTok{# Todo valor superior a este se considera oulier}
+\NormalTok{  outlier_max =}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(cuantiles[}\DecValTok{3}\NormalTok{])}\OperatorTok{+}\FloatTok{1.5}\OperatorTok{*}\NormalTok{iqr.valor}
+  \CommentTok{#ahora reemplazamos el dato por la media}
+\NormalTok{  entrada[entrada }\OperatorTok{<}\StringTok{ }\NormalTok{outlier_min] =}\StringTok{ }\KeywordTok{round}\NormalTok{(}\KeywordTok{mean}\NormalTok{(entrada))}
+\NormalTok{  entrada[entrada }\OperatorTok{>}\StringTok{ }\NormalTok{outlier_max] =}\StringTok{ }\KeywordTok{round}\NormalTok{(}\KeywordTok{median}\NormalTok{(entrada))}
+  \KeywordTok{return}\NormalTok{(entrada)}
+\NormalTok{\} }
+
+\KeywordTok{boxplot}\NormalTok{(dh_reducido}\OperatorTok{$}\NormalTok{stays_in_weekend_nights, }\DataTypeTok{main=}\StringTok{"Estadía de dias los fines de semana"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{prac2_files/figure-latex/valores_extremos-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(dh_reducido}\OperatorTok{$}\NormalTok{stays_in_weekend_nights)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   0.000   0.000   1.000   0.929   2.000  19.000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{boxplot}\NormalTok{(dh_reducido}\OperatorTok{$}\NormalTok{stays_in_week_nights, }\DataTypeTok{main=}\StringTok{"Estadía de dias los fines de semana"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{prac2_files/figure-latex/valores_extremos-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(dh_reducido}\OperatorTok{$}\NormalTok{stays_in_week_nights)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   0.000   1.000   2.000   2.464   3.000  50.000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{boxplot}\NormalTok{(dh_reducido}\OperatorTok{$}\NormalTok{adults, }\DataTypeTok{main=}\StringTok{"Adultos"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{prac2_files/figure-latex/valores_extremos-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(dh_reducido}\OperatorTok{$}\NormalTok{adults)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    0.00    2.00    2.00    1.83    2.00    4.00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{boxplot}\NormalTok{(dh_reducido}\OperatorTok{$}\NormalTok{children, }\DataTypeTok{main=}\StringTok{"Niños"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{prac2_files/figure-latex/valores_extremos-4.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(dh_reducido}\OperatorTok{$}\NormalTok{children)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  0.0000  0.0000  0.0000  0.1023  0.0000  3.0000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{boxplot}\NormalTok{(dh_reducido}\OperatorTok{$}\NormalTok{babies, }\DataTypeTok{main=}\StringTok{"Bebes"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{prac2_files/figure-latex/valores_extremos-5.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(dh_reducido}\OperatorTok{$}\NormalTok{babies)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+##  0.00000  0.00000  0.00000  0.01038  0.00000 10.00000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{boxplot}\NormalTok{(dh_reducido}\OperatorTok{$}\NormalTok{adr, }\DataTypeTok{main=}\StringTok{"tarifa diaria promedio"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{prac2_files/figure-latex/valores_extremos-6.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(dh_reducido}\OperatorTok{$}\NormalTok{adr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   -6.38   67.50   92.50   99.99  125.00  510.00
+\end{verbatim}
+
+En nuestro caso a pesar de haber creado una funcion para eliminar los
+valores outlier, no la hemos necesitado, puesto que tenemos valores
+outlier pero como bien dice la teoria la media y la mediana no distan
+mucho entre si, como vemos en el summary de cada variable, por lo tanto
+no consideramos los valores outlier peligroso o dañinos para nuestro
+estudio, es decir si los corregimos el resultado final con los valores
+outlier o sin ellos no será muy diferente. Por lo tanto los dejamos.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Extraemos en un CSV los datos finales que usaremos.}
+\KeywordTok{write.csv}\NormalTok{(dh_reducido, }\StringTok{"datos_hoteles.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{anuxe1lisis-de-los-datos.}{%
+\subsection{4.- Análisis de los
+datos.}\label{anuxe1lisis-de-los-datos.}}
+
+\hypertarget{selecciuxf3n-de-los-grupos-de-datos-que-se-quieren-analizarcomparar-planificaciuxf3n-de-los-anuxe1lisis-a-aplicar.}{%
+\paragraph{4.1. Selección de los grupos de datos que se quieren
+analizar/comparar (planificación de los análisis a
+aplicar).}\label{selecciuxf3n-de-los-grupos-de-datos-que-se-quieren-analizarcomparar-planificaciuxf3n-de-los-anuxe1lisis-a-aplicar.}}
+
+\hypertarget{comprobaciuxf3n-de-la-normalidad-y-homogeneidad-de-la-varianza.}{%
+\paragraph{4.2. Comprobación de la normalidad y homogeneidad de la
+varianza.}\label{comprobaciuxf3n-de-la-normalidad-y-homogeneidad-de-la-varianza.}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{comprobar_normalidad =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(datos)\{}
+  \ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{ncol}\NormalTok{(datos))\{}
+    \ControlFlowTok{if}\NormalTok{(}\KeywordTok{is.numeric}\NormalTok{(datos[,i]))\{}
+      \KeywordTok{qqnorm}\NormalTok{(datos[,i], }\DataTypeTok{main =} \KeywordTok{paste}\NormalTok{(}\StringTok{"Normal Q-Q plot para "}\NormalTok{, }\KeywordTok{colnames}\NormalTok{(datos)[i]))}
+      \KeywordTok{qqline}\NormalTok{(datos[,i], }\DataTypeTok{col=}\StringTok{"red"}\NormalTok{)}
+      \KeywordTok{hist}\NormalTok{(datos[,i],}
+           \DataTypeTok{main =} \KeywordTok{paste}\NormalTok{(}\StringTok{"Histograma para "}\NormalTok{, }\KeywordTok{colnames}\NormalTok{(datos)[i]),}
+           \DataTypeTok{xlab =} \KeywordTok{colnames}\NormalTok{(datos)[i], }\DataTypeTok{freq =} \OtherTok{FALSE}\NormalTok{)}
+\NormalTok{    \}}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\NormalTok{trainIndex=}\KeywordTok{createDataPartition}\NormalTok{(dh_reducido}\OperatorTok{$}\NormalTok{hotel, }\DataTypeTok{p=}\FloatTok{0.06}\NormalTok{)}\OperatorTok{$}\NormalTok{Resample1}
+\NormalTok{data_training=dh_reducido[trainIndex, ]}
+\NormalTok{data_test=}\StringTok{ }\NormalTok{dh_reducido[}\OperatorTok{-}\NormalTok{trainIndex, ]}
+
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\KeywordTok{comprobar_normalidad}\NormalTok{(data_training)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{prac2_files/figure-latex/normalidad-1.pdf}
+\includegraphics{prac2_files/figure-latex/normalidad-2.pdf}
+\includegraphics{prac2_files/figure-latex/normalidad-3.pdf}
+\includegraphics{prac2_files/figure-latex/normalidad-4.pdf}
+\includegraphics{prac2_files/figure-latex/normalidad-5.pdf}
+
+Ahora para ver si las varibales estan normalizadas aplico el test de
+Shapiro Wilk a cada variable numérica, para aplicarlo la muestra tienen
+que ser inferior a 5000, Por eso reducimos la muestra anteriormente
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{shapiro.test}\NormalTok{(data_training}\OperatorTok{$}\NormalTok{arrival_date_week_number)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Shapiro-Wilk normality test
+## 
+## data:  data_training$arrival_date_week_number
+## W = 0.96927, p-value < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{shapiro.test}\NormalTok{(data_training}\OperatorTok{$}\NormalTok{arrival_date_day_of_month)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Shapiro-Wilk normality test
+## 
+## data:  data_training$arrival_date_day_of_month
+## W = 0.95067, p-value < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{shapiro.test}\NormalTok{(data_training}\OperatorTok{$}\NormalTok{stays_in_weekend_nights)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Shapiro-Wilk normality test
+## 
+## data:  data_training$stays_in_weekend_nights
+## W = 0.78323, p-value < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{shapiro.test}\NormalTok{(data_training}\OperatorTok{$}\NormalTok{stays_in_week_nights)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Shapiro-Wilk normality test
+## 
+## data:  data_training$stays_in_week_nights
+## W = 0.81646, p-value < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{shapiro.test}\NormalTok{(data_training}\OperatorTok{$}\NormalTok{adults)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Shapiro-Wilk normality test
+## 
+## data:  data_training$adults
+## W = 0.67384, p-value < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{shapiro.test}\NormalTok{(data_training}\OperatorTok{$}\NormalTok{children)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Shapiro-Wilk normality test
+## 
+## data:  data_training$children
+## W = 0.29776, p-value < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{shapiro.test}\NormalTok{(data_training}\OperatorTok{$}\NormalTok{babies)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Shapiro-Wilk normality test
+## 
+## data:  data_training$babies
+## W = 0.071609, p-value < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{shapiro.test}\NormalTok{(data_training}\OperatorTok{$}\NormalTok{adr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Shapiro-Wilk normality test
+## 
+## data:  data_training$adr
+## W = 0.94309, p-value < 2.2e-16
+\end{verbatim}
+
+El test de Shapiro Wilk nos indican que ninguna de las variables estan
+normalizadas, ya que es p-valor es inferior a 0.05, asi que entendemos
+que no es normal. De todas formas que no sea normal no significa que no
+pueda llegar a serlo, ya que según el teorema del limite central al
+tener mas de 30 elementos la observación podemos aproximarla como una
+distribución normal de media 0 y desviacin estandar 1
+
+\hypertarget{aplicaciuxf3n-de-pruebas-estaduxedsticas-para-comparar-los-grupos-de-datos.-en-funciuxf3n-de-los-datos-y-el-objetivo-del-estudio-aplicar-pruebas-de-contraste-de-hipuxf3tesis-correlaciones-regresiones-etc.-aplicar-al-menos-tres-muxe9todos-de-anuxe1lisis-diferentes.}{%
+\paragraph{4.3. Aplicación de pruebas estadísticas para comparar los
+grupos de datos. En función de los datos y el objetivo del estudio,
+aplicar pruebas de contraste de hipótesis, correlaciones, regresiones,
+etc. Aplicar al menos tres métodos de análisis
+diferentes.}\label{aplicaciuxf3n-de-pruebas-estaduxedsticas-para-comparar-los-grupos-de-datos.-en-funciuxf3n-de-los-datos-y-el-objetivo-del-estudio-aplicar-pruebas-de-contraste-de-hipuxf3tesis-correlaciones-regresiones-etc.-aplicar-al-menos-tres-muxe9todos-de-anuxe1lisis-diferentes.}}
+
+Para poder responder a las preguntas que hemos planteado anteriormente,
+podemos usarpruebas de correlación lineal o regresión lineal, para ver
+la relacion que existe entre dos variables, pero antes vamos a ver sus
+diferencias: - La correlacion lo que hace es cuantificar como de
+relacionadas estan dos variables - La regresión lineal lo que hace es
+generar una ecuación, que pretende predecir el valor de una en funcion
+de la otra.
+
+Lo que se suele hacer es primeramente ver si ambas variables estan
+relacionadas y en caso de estarlo se porcede a realizar el modelo de
+regresión.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# A partir de ahora usaremos los datos de training}
+\CommentTok{# por ejemplo queremos estudiar si hay una relacion entre el mes en el que se hace la reserva y el precio}
+\CommentTok{# de la habitación.}
+
+\CommentTok{# Haremos un diagrama de dispersión.}
+
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ data_training, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{  arrival_date_month, }\DataTypeTok{y=}\NormalTok{ adr)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{colour=} \StringTok{"red4"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Diagrama de dispersión")}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{prac2_files/figure-latex/pruebas-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cor1 =}\StringTok{ }\NormalTok{data_training[, }\KeywordTok{c}\NormalTok{(}\StringTok{"arrival_date_month"}\NormalTok{, }\StringTok{"adr"}\NormalTok{)]}
+\NormalTok{correlacion1 =}\StringTok{ }\KeywordTok{round}\NormalTok{(}\KeywordTok{cor}\NormalTok{(cor1), }\DecValTok{1}\NormalTok{)}
+\KeywordTok{corrplot}\NormalTok{(correlacion1, }\DataTypeTok{addCoef.col =} \StringTok{"black"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{prac2_files/figure-latex/pruebas-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# si hay una relacion entre el dia del mes y el precio}
+\CommentTok{# de la habitación.}
+
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ data_training, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ arrival_date_day_of_month , }\DataTypeTok{y=}\NormalTok{ adr)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{colour=} \StringTok{"red4"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Diagrama de dispersión")}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{prac2_files/figure-latex/pruebas-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cor2 =}\StringTok{ }\NormalTok{data_training[, }\KeywordTok{c}\NormalTok{(}\StringTok{"arrival_date_day_of_month"}\NormalTok{, }\StringTok{"adr"}\NormalTok{)]}
+\NormalTok{correlacion2 =}\StringTok{ }\KeywordTok{round}\NormalTok{(}\KeywordTok{cor}\NormalTok{(cor2), }\DecValTok{1}\NormalTok{)}
+\KeywordTok{corrplot}\NormalTok{(correlacion2, }\DataTypeTok{addCoef.col =} \StringTok{"black"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{prac2_files/figure-latex/pruebas-4.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# si hay una relacion entre el número de personas al que se hace la reserva y}
+\CommentTok{# el precio de la habitación.}
+
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ data_training, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ adults , }\DataTypeTok{y=}\NormalTok{ adr)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{colour=} \StringTok{"red4"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Diagrama de dispersión")}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{prac2_files/figure-latex/pruebas-5.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cor3 =}\StringTok{ }\NormalTok{data_training[, }\KeywordTok{c}\NormalTok{(}\StringTok{"adults"}\NormalTok{, }\StringTok{"adr"}\NormalTok{)]}
+\NormalTok{correlacion3 =}\StringTok{ }\KeywordTok{round}\NormalTok{(}\KeywordTok{cor}\NormalTok{(cor3), }\DecValTok{1}\NormalTok{)}
+\KeywordTok{corrplot}\NormalTok{(correlacion3, }\DataTypeTok{addCoef.col =} \StringTok{"black"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{prac2_files/figure-latex/pruebas-6.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# si hay una relacion entre el número de de dias entre semana  y}
+\CommentTok{# el precio de la habitación.}
+
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ data_training, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ stays_in_week_nights , }\DataTypeTok{y=}\NormalTok{ adr)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{colour=} \StringTok{"red4"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Diagrama de dispersión")}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{prac2_files/figure-latex/pruebas-7.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cor4 =}\StringTok{ }\NormalTok{data_training[, }\KeywordTok{c}\NormalTok{(}\StringTok{"stays_in_week_nights"}\NormalTok{, }\StringTok{"adr"}\NormalTok{)]}
+\NormalTok{correlacion4 =}\StringTok{ }\KeywordTok{round}\NormalTok{(}\KeywordTok{cor}\NormalTok{(cor4), }\DecValTok{1}\NormalTok{)}
+\KeywordTok{corrplot}\NormalTok{(correlacion4, }\DataTypeTok{addCoef.col =} \StringTok{"black"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{prac2_files/figure-latex/pruebas-8.pdf}
+
+Como podemos comprobar tanto graficamente como numericamente no existe
+una correlacion muy fuerte entre ningunas de las variables Por ejemplo
+vamos a estimar por minimos cuadrados que relación hay entre en numero
+de adultos para el que se hace la reserva, el mes de llegada y el precio
+medio de la noche
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{regresion =}\StringTok{ }\KeywordTok{lm}\NormalTok{(adr }\OperatorTok{~}\StringTok{ }\NormalTok{adults }\OperatorTok{+}\StringTok{ }\NormalTok{stays_in_week_nights }\OperatorTok{+}\StringTok{ }\NormalTok{stays_in_weekend_nights, }\DataTypeTok{data=}\NormalTok{ data_training)}
+\NormalTok{resultado_regresion =}\StringTok{  }\KeywordTok{summary}\NormalTok{(regresion)}
+\NormalTok{resultado_regresion}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = adr ~ adults + stays_in_week_nights + stays_in_weekend_nights, 
+##     data = data_training)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -107.291  -31.062   -7.014   23.457  264.653 
+## 
+## Coefficients:
+##                         Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)              41.1556     2.6925  15.285   <2e-16 ***
+## adults                   32.5830     1.4119  23.078   <2e-16 ***
+## stays_in_week_nights      0.3233     0.4260   0.759    0.448    
+## stays_in_weekend_nights  -1.2638     0.8344  -1.515    0.130    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 47.2 on 4507 degrees of freedom
+## Multiple R-squared:  0.1075, Adjusted R-squared:  0.1069 
+## F-statistic:   181 on 3 and 4507 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+Explicando un poco el modelo con estas 4 variables es capaz de aplicar
+el 10\% de la varianza observada en el precio de la habitación. (siendo
+el R ajustado =0.1069) cuanto más próximo a 1 también indica que el
+modelo es capaz de explicar una gran proporción de la varianza en la
+variable respuesta.
+
+El P-valor del modelo es significativo (2.2e-16) por lo que podemos
+decir que el modelo es útil y que exite una relación entre los
+predictores y la variable respuesta (uno de los coeficientes es distinto
+de 0)
+
+La estimación puntual seria o b0 : 42.4259 La estimación que acompaña a
+adults que es b1: 30.8362 La estimacion que acompaña a
+stays\_in\_week\_nights que es b2: 1.0104 y la que acompaña a
+stays\_in\_weekend\_nights es b3:-1.4415
+
+La ecuacion de regresión que representa a este modelo sería El modelo
+teórico seria Y = b0 + b1\emph{adults + b2}stays\_in\_week\_nights +
+b3*stays\_in\_weekend\_nights
+
+Por otro lado podemos ver el contraste de precio entre dependiendo del
+tipo de hotel que tenomos (City Hotel) y (Resort Hotel)
+
+En este caso consideramos dos muestras independientes y lo queremos
+saberes si, la tarifa diaria promedio es diferente al de los hoteles en
+la ciudad o los resort, por lo tanto hay hay que considerar dos muestras
+independientes. En este caso tenemos una muestra aleatoria de tamaño n1
+y otra muestra de tamaño n2.
+
+En este caso nuestra hipótesis nula sería: H0: μ1 = μ2 y nuestra
+hipótesis alternativa es la siguiente H1: μ1 /= μ2
+
+No se nos da ninguna información sobre esta distribución, asi que hemos
+de analizar si se cumple el teorema del limite central, Dado que la
+muestra es suficientemente grande podemos suponer que la media
+aritmetica de la muestra se puede aproximar a una distribución normal.
+
+La media muestral tiene esperanza μ y varianza σ2/n, además por ser
+combinación lineal de variables normales es a su vez Normal
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{city_hotel =}\StringTok{ }\NormalTok{data_training[data_training}\OperatorTok{$}\NormalTok{hotel }\OperatorTok{==}\StringTok{ "City Hotel"}\NormalTok{, }\StringTok{"adr"}\NormalTok{]}
+\NormalTok{resort_hotel =}\StringTok{ }\NormalTok{data_training[data_training}\OperatorTok{$}\NormalTok{hotel }\OperatorTok{==}\StringTok{ "Resort Hotel"}\NormalTok{, }\StringTok{"adr"}\NormalTok{]}
+
+\KeywordTok{t.test}\NormalTok{(city_hotel, resort_hotel, }\DataTypeTok{alternative=}\StringTok{"two.side"}\NormalTok{, }\DataTypeTok{var.equal=}\OtherTok{TRUE}\NormalTok{,}\DataTypeTok{conf.level=}\FloatTok{0.95}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Two Sample t-test
+## 
+## data:  city_hotel and resort_hotel
+## t = 10.13, df = 4509, p-value < 2.2e-16
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  12.34599 18.27120
+## sample estimates:
+## mean of x mean of y 
+## 106.15004  90.84145
+\end{verbatim}
+
+Con un p-value = 2.2e-16 menor de 0.05 por lo tanto rechazamos la
+hipotesis nula, osea hay una direrencia entre un hotel en el ciudad y un
+resort. Por lo tanto hay diferencias significativas entre las medias.
+Podemos concluir que la media entre un hotel en la ciudad y uno resort
+son distintas en cuanto al tarifa diaria.
+
+\hypertarget{representaciuxf3n-de-los-resultados-a-partir-de-tablas-y-gruxe1ficas.}{%
+\subsection{5. Representación de los resultados a partir de tablas y
+gráficas.}\label{representaciuxf3n-de-los-resultados-a-partir-de-tablas-y-gruxe1ficas.}}
+
+En este apartado hemos los graficos los hemos ido poniendo a medida que
+ibamos desarrollando la practica para tener en la medida de lo posible
+vista grafica y numerica de los resultados obtenidos.
+
+\hypertarget{resoluciuxf3n-del-problema.-a-partir-de-los-resultados-obtenidos-cuuxe1les-son-las-conclusiones-los-resultados-permiten-responder-al-problema}{%
+\subsection{6. Resolución del problema. A partir de los resultados
+obtenidos, ¿cuáles son las conclusiones? ¿Los resultados permiten
+responder al
+problema?}\label{resoluciuxf3n-del-problema.-a-partir-de-los-resultados-obtenidos-cuuxe1les-son-las-conclusiones-los-resultados-permiten-responder-al-problema}}
+
+En nuestro caso no pudimos obtener una relacion lineal entre las
+variables peso y ninguna de las otras variables en el dataset,
+estudiamos la correlacion entre cada una de ellas, pero los valores
+obtenidos fueron muy cercanos al cero en todos los casos, por lo tanto
+no encontramos una relacion fuerte entre las variables.
+
+Por otro lado el analisis realizado sobre el tipo de hotel y tarifa
+diaria, pudimos concluir que hay bastante diferencia de precio
+dependiendo del tipo de hotel.
+
+\end{document}
