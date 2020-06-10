@@ -53,3 +53,8 @@ ya se ha ido; No-Show: el cliente no hizo el check-in e informó al hotel del mo
 - Reservation_status_date: Fecha en la que se estableció el último estado. Esta variable se puede usar junto con el Estado de reserva para comprender cuándo se canceló la reserva
 o cuándo el cliente realizó el check-out del hotel
 
+
+# Entrega
+
+La entrega cuenta con la solucion de la práctica en un fichero HTML y el mismo pero en version PDF, también se ha subido el fichero RMarkdown, creado en RStudio.
+se adjunta el dataset original (hotel_booking.csv) y el dataset limpio (datos_hoteles) y usado para la práctica.
